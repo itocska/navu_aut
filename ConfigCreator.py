@@ -53,13 +53,6 @@ def createOccasionalDataProvision(driver) :
 
 def getCertForDataProvision(driver) :
 
-    # For test
-    # driver.get(os.getenv("CONFIG_CREATOR_URL"))
-    # try:
-    #     WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatások']")) )
-    # except NoSuchElementException:
-    #     print("Error in page loading")
-
     driver.find_element(By.XPATH, "(//mat-icon[contains(@class,'mat-icon notranslate')])[3]").click()
     try:
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatás módosítása']")) )
@@ -124,10 +117,23 @@ def getCertForDataProvision(driver) :
     driver.find_element(By.XPATH, "//span[text()=' Rendben ']").click()
     time.sleep(0.5)
 
-def checkCertForDataProvision(driver) : #TODO
+def checkCertForDataProvision(driver) :
 
-    print("test")
-    print(driver.find_element(By.XPATH, "(//mat-icon[contains(@class,'mat-icon notranslate')])[3]").text)
+    while driver.find_element(By.XPATH, "(//mat-icon)[3]").text != "check_circle_outline" :
+        print("Waiting for Certification")
+        time.sleep(30)
+        driver.refresh()
+        time.sleep(0.5)
+        try:
+            WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatás módosítása']")) )
+        except NoSuchElementException:
+            print("Error in page loading")
+
+    driver.get(os.getenv("CONFIG_CREATOR_URL"))
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatások']")) )
+    except NoSuchElementException:
+        print("Error in page loading")
 
 def createOfflineEMSZ(driver) :
 

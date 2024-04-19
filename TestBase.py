@@ -15,5 +15,6 @@ driver = webdriver.Chrome(options=options)
 #SMOKE SET
 createOccasionalDataProvision(driver)
 getCertForDataProvision(driver)
+checkCertForDataProvision(driver)
 time.sleep(0.5)
 #dataReceiverLogin(driver)
