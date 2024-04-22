@@ -8,6 +8,7 @@ from zipfile import ZipFile
 from Helpers import *
 import time
 import os
+import glob
 
 load_dotenv() 
 
@@ -261,11 +262,14 @@ def downloadAndUnzipConfigs(driver) :
     driver.find_element(By.XPATH, "//mat-icon[text()='download_for_offline']").click()
 
     time.sleep(2)
+    
     #impovement idea - wait until downloaded
+    files = glob.glob(os.getenv("DLOAD_PATH") + "/*")
+    latest_file_full_path = max(files, key = os.path.getctime)
+    print("Name of the downloaded file: ", latest_file_full_path)
 
-    with ZipFile("C:\\Users\\sai mohan pulamolu\\Desktop\\geeks_dir\\temp\\temp.zip", 'r') as zObject :
-        zObject.extract("text1.txt", path="C:\\Users\\sai mohan pulamolu\\Desktop\\geeks_dir\\temp") 
-    zObject.close()
+    with ZipFile(latest_file_full_path, 'r') as zObject :
+        zObject.extractall(path = os.getenv("DLOAD_PATH") + "/extracted") 
     
 
 

@@ -9,7 +9,7 @@ import os
 load_dotenv()
 
 options = webdriver.ChromeOptions()
-prefs = {"download.default_directory" : r"C:\projects\navu_aut\downloads\\"}#TODO variable
+prefs = {"download.default_directory" : r"C:\projects\navu_aut\downloads\\"}
 options.add_experimental_option("prefs", prefs)
 options.add_experimental_option("detach", True)
 options.add_argument("--allow-running-insecure-content")
