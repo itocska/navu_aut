@@ -4,6 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 from dotenv import load_dotenv, dotenv_values
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from zipfile import ZipFile
 from Helpers import *
 import time
 import os
@@ -46,90 +47,6 @@ def createOccasionalDataProvision(driver) :
         print("Error in page loading")
 
     driver.find_element(By.XPATH, "//span[text()=' Rendben ']").click()
-    try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatások']")) )
-    except NoSuchElementException:
-        print("Error in page loading")
-
-def getCertForDataProvision(driver) :
-
-    driver.find_element(By.XPATH, "(//mat-icon[contains(@class,'mat-icon notranslate')])[3]").click()
-    try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatás módosítása']")) )
-    except NoSuchElementException:
-        print("Error in page loading")
-
-    # Requester Cert Login
-    driver.find_element(By.XPATH, "(//span[text()=' Tanúsítvány igénylése '])[1]").click()
-    try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()='Tanúsítvány igényléshez szükséges belépési adatok megadása']")) )
-    except NoSuchElementException:
-        print("Error in page loading")
-    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys(os.getenv("RA_NICK"))
-    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys(os.getenv("RA_PASS"))
-    driver.find_element(By.XPATH, "//span[text()=' Bejelentkezés ']").click()
-    time.sleep(0.5)
-    try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Információ')]")) )
-    except NoSuchElementException:
-        print("Error in page loading")
-    driver.find_element(By.XPATH, "//span[text()=' Rendben ']").click()
-    time.sleep(0.5)
-
-
-    # Receiver Cert Login
-    driver.find_element(By.XPATH, "(//span[text()=' Tanúsítvány igénylése '])[2]").click()
-    try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()='Tanúsítvány igényléshez szükséges belépési adatok megadása']")) )
-    except NoSuchElementException:
-        print("Error in page loading")
-    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys(os.getenv("RA_NICK"))
-    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys(os.getenv("RA_PASS"))
-    driver.find_element(By.XPATH, "//span[text()=' Bejelentkezés ']").click()
-    time.sleep(0.5)
-    try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Információ')]")) )
-    except NoSuchElementException:
-        print("Error in page loading")
-    driver.find_element(By.XPATH, "//span[text()=' Rendben ']").click()
-    time.sleep(0.5)
-
-    # Scrolling and open to EMSZ Cert Login
-    driver.find_element(By.XPATH, "//td[contains(text(),'SMOKE eseti online')]").click()
-    time.sleep(0.5)
-    driver.execute_script("window.scrollBy(0, 200)","")
-    time.sleep(0.5)
-
-
-    # EMSZ Cert Login
-    driver.find_element(By.XPATH, "(//span[text()=' Tanúsítvány igénylése '])[3]").click()
-    try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()='Tanúsítvány igényléshez szükséges belépési adatok megadása']")) )
-    except NoSuchElementException:
-        print("Error in page loading")
-    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys(os.getenv("RA_NICK"))
-    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys(os.getenv("RA_PASS"))
-    driver.find_element(By.XPATH, "//span[text()=' Bejelentkezés ']").click()
-    try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Információ')]")) )
-    except NoSuchElementException:
-        print("Error in page loading")
-    driver.find_element(By.XPATH, "//span[text()=' Rendben ']").click()
-    time.sleep(0.5)
-
-def checkCertForDataProvision(driver) :
-
-    while driver.find_element(By.XPATH, "(//mat-icon)[3]").text != "check_circle_outline" :
-        print("Waiting for Certification")
-        time.sleep(30)
-        driver.refresh()
-        time.sleep(0.5)
-        try:
-            WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatás módosítása']")) )
-        except NoSuchElementException:
-            print("Error in page loading")
-
-    driver.get(os.getenv("CONFIG_CREATOR_URL"))
     try:
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatások']")) )
     except NoSuchElementException:
@@ -243,6 +160,113 @@ def createListConfig(driver, EMSZname) :
 
     driver.find_element(By.XPATH, "//td[contains(text(),'" + EMSZname + "')]").click()
     time.sleep(0.5)
+
+def getCertForDataProvision(driver) :
+
+    driver.find_element(By.XPATH, "(//mat-icon[contains(@class,'mat-icon notranslate')])[3]").click()
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatás módosítása']")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+
+    # Requester Cert Login
+    driver.find_element(By.XPATH, "(//span[text()=' Tanúsítvány igénylése '])[1]").click()
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()='Tanúsítvány igényléshez szükséges belépési adatok megadása']")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys(os.getenv("RA_NICK"))
+    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys(os.getenv("RA_PASS"))
+    driver.find_element(By.XPATH, "//span[text()=' Bejelentkezés ']").click()
+    time.sleep(0.5)
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Információ')]")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//span[text()=' Rendben ']").click()
+    time.sleep(0.5)
+
+
+    # Receiver Cert Login
+    driver.find_element(By.XPATH, "(//span[text()=' Tanúsítvány igénylése '])[2]").click()
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()='Tanúsítvány igényléshez szükséges belépési adatok megadása']")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys(os.getenv("RA_NICK"))
+    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys(os.getenv("RA_PASS"))
+    driver.find_element(By.XPATH, "//span[text()=' Bejelentkezés ']").click()
+    time.sleep(0.5)
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Információ')]")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//span[text()=' Rendben ']").click()
+    time.sleep(0.5)
+
+    # Scrolling and open to EMSZ Cert Login
+    driver.find_element(By.XPATH, "//td[contains(text(),'SMOKE eseti online')]").click()
+    time.sleep(0.5)
+    driver.execute_script("window.scrollBy(0, 200)","")
+    time.sleep(0.5)
+
+
+    # EMSZ Cert Login
+    driver.find_element(By.XPATH, "(//span[text()=' Tanúsítvány igénylése '])[3]").click()
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()='Tanúsítvány igényléshez szükséges belépési adatok megadása']")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys(os.getenv("RA_NICK"))
+    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys(os.getenv("RA_PASS"))
+    driver.find_element(By.XPATH, "//span[text()=' Bejelentkezés ']").click()
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Információ')]")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//span[text()=' Rendben ']").click()
+    time.sleep(0.5)
+
+def checkCertForDataProvision(driver) :
+
+    while driver.find_element(By.XPATH, "(//mat-icon)[3]").text != "check_circle_outline" :
+        #TODO if the answer was error during cert request
+        print("Waiting for Certification")
+        time.sleep(30)
+        driver.refresh()
+        time.sleep(0.5)
+        try:
+            WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatás módosítása']")) )
+        except NoSuchElementException:
+            print("Error in page loading")
+
+    driver.get(os.getenv("CONFIG_CREATOR_URL"))
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatások']")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+
+def downloadAndUnzipConfigs(driver) : 
+    #######FORTEST
+    driver.get(os.getenv("CONFIG_CREATOR_URL"))
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatások']")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    #######FORTESTEND
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//mat-icon[text()='download_for_offline']")) )
+    except NoSuchElementException:
+        print("Data provision error")
+    driver.find_element(By.XPATH, "//mat-icon[text()='download_for_offline']").click()
+
+    time.sleep(2)
+    #impovement idea - wait until downloaded
+
+    with ZipFile("C:\\Users\\sai mohan pulamolu\\Desktop\\geeks_dir\\temp\\temp.zip", 'r') as zObject :
+        zObject.extract("text1.txt", path="C:\\Users\\sai mohan pulamolu\\Desktop\\geeks_dir\\temp") 
+    zObject.close()
+    
 
 
 #def createDataProvision(driver, dataServiceMode) :
