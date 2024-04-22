@@ -65,8 +65,8 @@ def getCertForDataProvision(driver) :
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()='Tanúsítvány igényléshez szükséges belépési adatok megadása']")) )
     except NoSuchElementException:
         print("Error in page loading")
-    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys('navutst.uat.ra')
-    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys('5QZhLu3rmT-w')
+    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys(os.getenv("RA_NICK"))
+    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys(os.getenv("RA_PASS"))
     driver.find_element(By.XPATH, "//span[text()=' Bejelentkezés ']").click()
     time.sleep(0.5)
     try:
@@ -83,8 +83,8 @@ def getCertForDataProvision(driver) :
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()='Tanúsítvány igényléshez szükséges belépési adatok megadása']")) )
     except NoSuchElementException:
         print("Error in page loading")
-    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys('navutst.uat.ra')
-    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys('5QZhLu3rmT-w')
+    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys(os.getenv("RA_NICK"))
+    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys(os.getenv("RA_PASS"))
     driver.find_element(By.XPATH, "//span[text()=' Bejelentkezés ']").click()
     time.sleep(0.5)
     try:
@@ -107,8 +107,8 @@ def getCertForDataProvision(driver) :
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()='Tanúsítvány igényléshez szükséges belépési adatok megadása']")) )
     except NoSuchElementException:
         print("Error in page loading")
-    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys('navutst.uat.ra')
-    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys('5QZhLu3rmT-w')
+    driver.find_element(By.XPATH, "//input[@formcontrolname='username']").send_keys(os.getenv("RA_NICK"))
+    driver.find_element(By.XPATH, "//input[@formcontrolname='password']").send_keys(os.getenv("RA_PASS"))
     driver.find_element(By.XPATH, "//span[text()=' Bejelentkezés ']").click()
     try:
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Információ')]")) )
