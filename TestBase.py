@@ -17,9 +17,9 @@ options.add_argument("--disable-features=InsecureDownloadWarnings")
 driver = webdriver.Chrome(options=options)
 
 #SMOKE SET
-#createOccasionalDataProvision(driver)
-#getCertForDataProvision(driver)
-#checkCertForDataProvision(driver)
+createOccasionalDataProvision(driver)
+getCertForDataProvision(driver)
+checkCertForDataProvision(driver)
 downloadAndUnzipConfigs(driver)
 time.sleep(0.5)
 #dataReceiverLogin(driver)

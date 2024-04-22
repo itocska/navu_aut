@@ -248,13 +248,6 @@ def checkCertForDataProvision(driver) :
         print("Error in page loading")
 
 def downloadAndUnzipConfigs(driver) : 
-    #######FORTEST
-    driver.get(os.getenv("CONFIG_CREATOR_URL"))
-    try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatások']")) )
-    except NoSuchElementException:
-        print("Error in page loading")
-    #######FORTESTEND
     try:
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//mat-icon[text()='download_for_offline']")) )
     except NoSuchElementException:
