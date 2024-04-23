@@ -24,7 +24,10 @@ def dataReceiverLogin(driver) :
 
     time.sleep(1)
     try: 
-        driver.find_element(By.XPATH,"//h2[text()='Kulcshálózat választás']") 
+        driver.find_element(By.XPATH,"//h1[text()='Üdvözöljük a NAVÜ Adatfogadó Alkalmazásban!']") 
         print("Login success") 
     except NoSuchElementException: 
         print("Velcome header not found")
+
+def loadConfigurationToDataReceiver(driver) :
+    driver.find_element(By.XPATH, "//input[contains(@class,'mat-input-element')]").send_keys("C:\projects\navu_aut\downloads\extracted\konf_TestNetwork_adatfogado_2_2024-04-22_1516.zip")
