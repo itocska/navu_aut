@@ -18,9 +18,7 @@ def dataReceiverLogin(driver) :
         print("Error in page loading")
 
     driver.find_element(By.XPATH, '//*[@id="mat-input-0"]').send_keys(os.getenv("DATA_RECEIVER_USER"))
-
     driver.find_element(By.XPATH, '//*[@id="mat-input-1"]').send_keys(os.getenv("DATA_RECEIVER_PASS"))
-
     driver.find_element(By.TAG_NAME, 'button').click()
 
     time.sleep(1)
@@ -59,4 +57,21 @@ def loadConfigurationToDataReceiver(driver) :
         print("Error in page loading")
 
 def checkMappedFile(driver) :
-    pass
+    driver.get(os.getenv("DATA_RECEIVER_URL") + "/status/TestNetwork")
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located(By.XPATH, "//h1[text()='Státuszok']") )
+    except NoSuchElementException:
+        print("Error in page loading")
+    try:
+        WebDriverWait(driver, 40).until( EC.presence_of_element_located(By.XPATH, "//tr[td[contains(., 'SMOKE eseti online')] and td[contains(., 'Kész')]]") )
+    except NoSuchElementException:
+        print("Error in page loading")
+    downloadMappedFile(driver)
+
+def downloadMappedFile(driver) : 
+    driver.get(os.getenv("DATA_RECEIVER_URL"))
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located(By.XPATH, "//h1[text()='Index of /Q0/succesStore']") )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//a[contains(text(), 'SMOKE_eseti_online')]").click()
