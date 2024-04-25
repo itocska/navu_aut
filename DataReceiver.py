@@ -57,3 +57,6 @@ def loadConfigurationToDataReceiver(driver) :
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Konfiguráció kezelése']")) )
     except NoSuchElementException:
         print("Error in page loading")
+
+def checkMappedFile(driver) :
+    pass

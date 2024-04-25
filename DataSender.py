@@ -11,7 +11,7 @@ load_dotenv()
 
 def loadConfigurationToDataSender(driver) :
     
-    driver.get(os.getenv("DATA_SENDER_URL" + "/configuration"))
+    driver.get(os.getenv("DATA_SENDER_URL") + "/configuration")
     try:
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//span[text()='NKR - Adatküldő alkalmazás']")) )
     except NoSuchElementException:
@@ -44,5 +44,38 @@ def loadConfigurationToDataSender(driver) :
         print("Error in page loading")
 
 def uploadFileToEncrypt(driver) :
-    driver.get(os.getenv("DATA_SENDER_URL" + "/data-submission"))
-    
+    driver.get(os.getenv("DATA_SENDER_URL") + "/data-submission")
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located(By.XPATH, "//h1[contains(text(),'Adatfeldolgozás és küldés')]") )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "(//mat-card//mat-icon)[1]").click()
+    time.sleep(1)
+    pyautogui.write(os.getenv("INPUT_FILE_PATH"))
+    pyautogui.press("enter")
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located(By.XPATH, "//h1[contains(text(),'Adatfeldolgozás és küldés')]") )
+    except NoSuchElementException:
+        print("Error in page loading")
+    time.sleep(1)
+    driver.find_element(By.XPATH, "//button/span[contains(text(),'Mentés')]").click()
+    try:
+        WebDriverWait(driver, 40).until( EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Információ')]")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//span[text()=' Rendben ']").click()
+    time.sleep(0.5)
+    try:
+        WebDriverWait(driver, 40).until( EC.presence_of_element_located((By.XPATH, "//span[contains(text(),'Feltöltött dokumentum neve')]")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    time.sleep(0.5)
+    driver.find_element(By.XPATH, "(//mat-card//mat-icon)[2]").click()
+    time.sleep(0.5)
+    driver.find_element(By.XPATH, "//span[text()=' Készre jelentés ']").click()
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Figyelem')]")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//span[text()=' Rendben ']").click()
+    time.sleep(0.5)

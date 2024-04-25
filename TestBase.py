@@ -10,7 +10,7 @@ import os
 load_dotenv()
 
 options = webdriver.ChromeOptions()
-prefs = {"download.default_directory" : r"C:\projects\navu_aut\downloads\\"}
+prefs = {"download.default_directory" : os.getcwd() + "\downloads"} 
 options.add_experimental_option("prefs", prefs)
 options.add_experimental_option("detach", True)
 options.add_argument("--allow-running-insecure-content")
@@ -29,3 +29,12 @@ driver = webdriver.Chrome(options=options)
 ##Sender
 loadConfigurationToDataSender(driver)
 uploadFileToEncrypt(driver)
+
+checkMappedFile(driver)
+
+##CleanUp
+#Reset KM
+#Reset CC
+#Reset SS
+#Delete Conf from RS
+#Delete download folder

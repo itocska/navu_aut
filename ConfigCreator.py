@@ -164,7 +164,15 @@ def createListConfig(driver, EMSZname) :
 
 def getCertForDataProvision(driver) :
 
+    # driver.get(os.getenv("CONFIG_CREATOR_URL"))
+    # try:
+    #     WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatások']")) )
+    # except NoSuchElementException:
+    #     print("Error in page loading")
+    ####FORTEST#######################
+
     driver.find_element(By.XPATH, "(//mat-icon[contains(@class,'mat-icon notranslate')])[3]").click()
+    time.sleep(1)
     try:
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatás módosítása']")) )
     except NoSuchElementException:
