@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from DataReceiver import *
 from ConfigCreator import *
+from DataSender import *
 from dotenv import load_dotenv, dotenv_values 
 import time
 import os
@@ -17,10 +18,14 @@ options.add_argument("--disable-features=InsecureDownloadWarnings")
 driver = webdriver.Chrome(options=options)
 
 #SMOKE SET
+##CC
 #createOccasionalDataProvision(driver)
 #getCertForDataProvision(driver)
 #checkCertForDataProvision(driver)
 #downloadAndUnzipConfigs(driver)
-time.sleep(0.5)
-dataReceiverLogin(driver)
-loadConfigurationToDataReceiver(driver)
+##Receiver
+#dataReceiverLogin(driver)
+#loadConfigurationToDataReceiver(driver)
+##Sender
+loadConfigurationToDataSender(driver)
+uploadFileToEncrypt(driver)

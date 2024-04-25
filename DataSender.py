@@ -9,40 +9,25 @@ import pyautogui
 
 load_dotenv()
 
-def dataReceiverLogin(driver) :
-
-    driver.get(os.getenv("DATA_RECEIVER_URL"))
+def loadConfigurationToDataSender(driver) :
+    
+    driver.get(os.getenv("DATA_SENDER_URL" + "/configuration"))
     try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//span[text()='NKR - Adatfogadó alkalmazás']")) )
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//span[text()='NKR - Adatküldő alkalmazás']")) )
     except NoSuchElementException:
         print("Error in page loading")
 
-    driver.find_element(By.XPATH, '//*[@id="mat-input-0"]').send_keys(os.getenv("DATA_RECEIVER_USER"))
-
-    driver.find_element(By.XPATH, '//*[@id="mat-input-1"]').send_keys(os.getenv("DATA_RECEIVER_PASS"))
-
-    driver.find_element(By.TAG_NAME, 'button').click()
-
-    time.sleep(1)
-    try: 
-        driver.find_element(By.XPATH,"//h1[text()='Üdvözöljük a NAVÜ Adatfogadó Alkalmazásban!']") 
-        print("Login success") 
-    except NoSuchElementException: 
-        print("Velcome header not found")
-
-def loadConfigurationToDataReceiver(driver) :
     driver.find_element(By.XPATH, "(//mat-card//mat-icon)[1]").click()
     time.sleep(1)
     configs_path = os.listdir(os.getcwd() + "/downloads/configurations")
     result = []
     for file in configs_path:
-        if file.startswith("konf"):
+        if file.startswith("SMOKE eseti online"):
             result.append(file)
-    #pyautogui.write(os.getenv("DLOAD_PATH_BSLASH") + "\configurations\\ + result[0])
     pyautogui.write(os.getcwd() + "\downloads\configurations\\" + result[0])
     pyautogui.press("enter")
     try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[contains(text(),'Konfigurációs fájl betöltése')]")) )
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[contains(text(),'Konfiguráció kezelése')]")) )
     except NoSuchElementException:
         print("Error in page loading")
     time.sleep(1)
@@ -57,3 +42,7 @@ def loadConfigurationToDataReceiver(driver) :
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Konfiguráció kezelése']")) )
     except NoSuchElementException:
         print("Error in page loading")
+
+def uploadFileToEncrypt(driver) :
+    driver.get(os.getenv("DATA_SENDER_URL" + "/data-submission"))
+    
