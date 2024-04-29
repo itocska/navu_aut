@@ -19,13 +19,14 @@ driver = webdriver.Chrome(options=options)
 
 #SMOKE SET
 ##CC
-#createOccasionalDataProvision(driver)
-#getCertForDataProvision(driver)
-#checkCertForDataProvision(driver)
-#downloadAndUnzipConfigs(driver)
+createOccasionalDataProvision(driver)
+getCertForDataProvision(driver)
+checkCertForDataProvision(driver)
+downloadAndUnzipConfigs(driver)
+#unzipConfig(driver)
 ##Receiver
-#dataReceiverLogin(driver)
-#loadConfigurationToDataReceiver(driver)
+dataReceiverLogin(driver)
+loadConfigurationToDataReceiver(driver)
 ##Sender
 loadConfigurationToDataSender(driver)
 uploadFileToEncrypt(driver)
@@ -33,8 +34,16 @@ uploadFileToEncrypt(driver)
 checkMappedFile(driver)
 
 ##CleanUp
+cleanUp(driver)
 #Reset KM
 #Reset CC
 #Reset SS
 #Delete Conf from RS
 #Delete download folder
+
+def cleanUp(driver) : 
+    #Reset KM
+    #Reset CC
+    #Reset SS
+    #Delete Conf from RS
+    #Delete download folder

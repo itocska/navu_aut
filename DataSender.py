@@ -45,8 +45,9 @@ def loadConfigurationToDataSender(driver) :
 
 def uploadFileToEncrypt(driver) :
     driver.get(os.getenv("DATA_SENDER_URL") + "/data-submission")
+    time.sleep(1)
     try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located(By.XPATH, "//h1[contains(text(),'Adatfeldolgozás és küldés')]") )
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[contains(text(),'Adatfeldolgozás és küldés')]")) )
     except NoSuchElementException:
         print("Error in page loading")
     driver.find_element(By.XPATH, "(//mat-card//mat-icon)[1]").click()
@@ -54,7 +55,7 @@ def uploadFileToEncrypt(driver) :
     pyautogui.write(os.getenv("INPUT_FILE_PATH"))
     pyautogui.press("enter")
     try:
-        WebDriverWait(driver, 10).until( EC.presence_of_element_located(By.XPATH, "//h1[contains(text(),'Adatfeldolgozás és küldés')]") )
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[contains(text(),'Adatfeldolgozás és küldés')]")) )
     except NoSuchElementException:
         print("Error in page loading")
     time.sleep(1)

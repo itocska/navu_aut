@@ -243,7 +243,7 @@ def checkCertForDataProvision(driver) :
         print("Waiting for Certification")
         time.sleep(30)
         driver.refresh()
-        time.sleep(0.5)
+        time.sleep(2)
         try:
             WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Adatszolgáltatás módosítása']")) )
         except NoSuchElementException:
