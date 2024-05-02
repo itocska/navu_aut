@@ -94,4 +94,19 @@ def selectKeyNetwork(driver, network) :
     driver.find_element(By.XPATH, "//span[text()=' Kiválaszt ']").click()
 
 def deleteConfigRS(driver) : 
-    pass
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Konfiguráció kezelése']")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//span[text()=' Konfiguráció törlése ']").click()
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Figyelem')]")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "(//span[text()=' Konfiguráció törlése '])[2]").click()
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()=' Konfigurációs fájl betöltése ']")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    print("A konfiguráció sikeresen törölve")
+    

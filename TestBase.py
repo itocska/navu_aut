@@ -23,4 +23,4 @@ driver = webdriver.Chrome(options=options)
 #smokeSet(driver)
 
 ##CleanUp
-cleanUp(driver)
+#cleanUp(driver)

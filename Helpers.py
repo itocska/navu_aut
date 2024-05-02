@@ -1,7 +1,9 @@
+import shutil
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
+from datetime import datetime, timedelta
 from DataReceiver import *
 import os
 import time
@@ -23,13 +25,21 @@ def searchFileIn(path, startsWith) :
 def cleanUp(driver) : 
     dataReceiverLogin(driver)
     selectKeyNetwork(driver, "TestNetwork")
+    deleteConfigRS(driver)
     
+    driver.get(os.getenv("KM_RESET"))
+    now = datetime.now()
+    nowPlus7 = now + timedelta(minutes = 7)
+    now_time = now.strftime("%H:%M:%S")
+    nowPlus7_time = nowPlus7.strftime("%H:%M:%S")
+    print("KM reset start: " + str(now_time) +"\nExpected finish: " + str(nowPlus7_time))
+    time.sleep(2)
     driver.get(os.getenv("CC_RESET"))
     time.sleep(2)
-    driver.get(os.getenv("RS_RESET"))
+    driver.get(os.getenv("SS_API_RESET"))
     time.sleep(2)
-    driver.get(os.getenv("SS_RESET"))
-    time.sleep(2)
-
-    #Delete Conf from RS
-    #Delete download folder
+    
+    try:
+        shutil.rmtree(os.getcwd() + "/downloads/configurations")
+    except OSError as e:
+        print("Error: %s - %s." % (e.filename, e.strerror))
