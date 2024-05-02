@@ -2,7 +2,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
-from DataReceiver import dataReceiverLogin
+from DataReceiver import *
 import os
 import time
 
@@ -22,6 +22,8 @@ def searchFileIn(path, startsWith) :
 
 def cleanUp(driver) : 
     dataReceiverLogin(driver)
+    selectKeyNetwork(driver, "TestNetwork")
+    
     driver.get(os.getenv("CC_RESET"))
     time.sleep(2)
     driver.get(os.getenv("RS_RESET"))

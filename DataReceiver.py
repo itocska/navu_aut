@@ -82,5 +82,16 @@ def downloadMappedFile(driver) :
         print("Error in page loading")
     driver.find_element(By.XPATH, "//a[contains(text(), 'SMOKE_eseti_online')]").click()
 
-def temp(driver) :
+def selectKeyNetwork(driver, network) :
+    try:
+        WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h2[text()='Kulcshálózat választás']")) )
+    except NoSuchElementException:
+        print("Error in page loading")
+    driver.find_element(By.XPATH, "//input").click()
+    time.sleep(0.5)
+    driver.find_element(By.XPATH, "//span[contains(text(), '" + network + " -')]").click()
+    time.sleep(0.5)
+    driver.find_element(By.XPATH, "//span[text()=' Kiválaszt ']").click()
+
+def deleteConfigRS(driver) : 
     pass
