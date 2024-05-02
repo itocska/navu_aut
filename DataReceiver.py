@@ -80,8 +80,7 @@ def downloadMappedFile(driver) :
         WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.XPATH, "//h1[text()='Index of /Q0/succesStore']")) )
     except NoSuchElementException:
         print("Error in page loading")
-    try:
-        WebDriverWait(driver, 60).until( EC.presence_of_element_located((By.XPATH, "//a[contains(text(), 'SMOKE_eseti_online')]")) )
-    except NoSuchElementException:
-        print("Error in page loading")
     driver.find_element(By.XPATH, "//a[contains(text(), 'SMOKE_eseti_online')]").click()
+
+def temp(driver) :
+    pass

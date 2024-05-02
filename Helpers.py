@@ -2,7 +2,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
+from DataReceiver import dataReceiverLogin
 import os
+import time
 
 def waitUntilSeenXpath(driver, xpath) :
     try:
@@ -17,3 +19,15 @@ def searchFileIn(path, startsWith) :
         if file.startswith(startsWith):
             result.append(file)
     return result[0]
+
+def cleanUp(driver) : 
+    dataReceiverLogin(driver)
+    driver.get(os.getenv("CC_RESET"))
+    time.sleep(2)
+    driver.get(os.getenv("RS_RESET"))
+    time.sleep(2)
+    driver.get(os.getenv("SS_RESET"))
+    time.sleep(2)
+
+    #Delete Conf from RS
+    #Delete download folder
