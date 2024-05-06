@@ -22,6 +22,9 @@ def searchFileIn(path, startsWith) :
             result.append(file)
     return result[0]
 
+def clickXP(driver, xpath) :
+    driver.find_element(By.XPATH, xpath).click()
+
 def cleanUp(driver) : 
     dataReceiverLogin(driver)
     selectKeyNetwork(driver, "TestNetwork")
