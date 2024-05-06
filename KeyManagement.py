@@ -13,7 +13,16 @@ import glob
 load_dotenv() 
 
 def keymanagementLogin(driver) :
-    pass
+    driver.find_element(By.XPATH, '//*[@id="mat-input-0"]').send_keys(os.getenv("KEY_MANAGEMENT_USER"))
+    driver.find_element(By.XPATH, '//*[@id="mat-input-1"]').send_keys(os.getenv("KEY_MANAGEMENT_PASS"))
+    driver.find_element(By.TAG_NAME, 'button').click()
+
+    time.sleep(1)
+    try: 
+        driver.find_element(By.XPATH,"//h1[text()='Kulcshálózat választás']") 
+        print("Login success") 
+    except NoSuchElementException: 
+        print("Velcome header not found")
 
 def changeParameters(driver) :
     
