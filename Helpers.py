@@ -24,6 +24,13 @@ def searchFileIn(path, startsWith) :
 
 def clickXP(driver, xpath) :
     driver.find_element(By.XPATH, xpath).click()
+    
+def printGreen(string) :
+    print("\x1b[6;30;42m" + string + "\x1b[0m")
+    
+def printRed(string) :
+    print("\x1b[6;31;41m" + string + "\x1b[0m") 
+    
 
 def cleanUp(driver) : 
     dataReceiverLogin(driver)
